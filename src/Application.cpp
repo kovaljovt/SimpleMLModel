@@ -12,7 +12,7 @@ void Application::runApp() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Lane Road Detection", nullptr, nullptr);
+    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Simple ML Model", nullptr, nullptr);
     if (window == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -82,15 +82,37 @@ void Application::runApp() {
         /* CONTROLS */
         ImGui::Begin("Controls");
 
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.5, 0.5, 0.5, 1));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.5, 0.5, 0.5, 1));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.5, 0.5, 0.5, 1));
+        ImVec2 sizeLeft = ImGui::GetContentRegionAvail();
+
+        ImGui::Button("previous", ImVec2(sizeLeft.x / 2 - ImGui::GetStyle().FramePadding.x,
+                                             sizeLeft.x / 2 - ImGui::GetStyle().FramePadding.x));
+        ImGui::SameLine();
+
+        ImVec2 sizeRight = ImGui::GetContentRegionAvail();
+        ImGui::Button("next", ImVec2(sizeRight.x, sizeRight.x));
+        ImGui::PopStyleColor(3);
+
         ImGui::End();
 
 
         /* OUTPUT */
-        ImGui::Begin("Controls");
+        ImGui::Begin("Output");
 
         ImGui::End();
 
         /* **** APPLICATION **** */
+
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        ImGui::EndFrame();
+
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
 
     glfwTerminate();
