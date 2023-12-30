@@ -1,4 +1,4 @@
-#include "Application.h"
+#include "include/Application.h"
 
 Application::Application() = default;
 
@@ -102,6 +102,7 @@ void Application::runApp() {
         ImGui::Begin("Output");
 
         ImGui::End();
+
 
         /* **** APPLICATION **** */
 

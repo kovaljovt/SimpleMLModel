@@ -10,8 +10,9 @@ add_subdirectory(glfw)
 
 add_executable(${PROJECT_NAME}
         main.cpp
+        src/data.cpp
+        src/data_handler.cpp
         src/Application.cpp
-        src/UI.cpp
         imgui/imgui_demo.cpp
         glad/src/glad.c
         imgui/imgui_draw.cpp
